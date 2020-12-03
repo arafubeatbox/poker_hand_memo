@@ -5,7 +5,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,6 +29,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _controller;
 
+  Map<int, Map<String, String>> plays = {};
+  Map<String, String> hand;
+
   void initState() {
     super.initState();
     _controller = TextEditingController();
@@ -50,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            new Text(hand.toString()),
             TextField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -57,23 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               controller: _controller,
               onSubmitted: (String value) async {
-                await showDialog<void>(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Thanks!'),
-                      content: Text('You typed "$value".'),
-                      actions: <Widget>[
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                this.setState(() => hand = {"hand": value});
               },
             )
           ],
